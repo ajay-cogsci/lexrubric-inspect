@@ -1,0 +1,15 @@
+{
+  "commit": "13861f99b2b268dbdffad7a95281e4ea27fe172d",
+  "files": {
+    "falvzixun.json": {
+      "url": "https://raw.githubusercontent.com/foggpoy/LexRubric/13861f99b2b268dbdffad7a95281e4ea27fe172d/data/falvzixun.json",
+      "sha256": "b4a729a9a9bb496b8fbd8791e1d3773110334423b013fdea74d191a75eced45a",
+      "bytes": 7559860
+    },
+    "sifakaoshi.json": {
+      "url": "https://raw.githubusercontent.com/foggpoy/LexRubric/13861f99b2b268dbdffad7a95281e4ea27fe172d/data/sifakaoshi.json",
+      "sha256": "7c173c63647ce1a6051dd6e5ebee18c4394d83b6d0b6767b17a5c9f6b6cc286a",
+      "bytes": 1286557
+    }
+  }
+}
