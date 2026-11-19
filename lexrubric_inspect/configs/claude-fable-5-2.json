@@ -1,0 +1,30 @@
+{
+  "approval_status": "approved",
+  "candidate_model": "claude-fable-5-2",
+  "candidate_provider": "anthropic",
+  "candidate_chat_url": "https://api.anthropic.com/v1/messages",
+  "candidate_api_key_env": "ANTHROPIC_API_KEY",
+  "candidate_temperature_policy": {
+    "mode": "omit",
+    "provider": "anthropic",
+    "model": "claude-fable-5-2",
+    "reason": "Claude Fable 5.2 uses mandatory adaptive thinking and accepts only native sampling; API 2026-10-21 rejects temperature.",
+    "documentation": "https://platform.claude.com/docs/en/api/migration-2026-10-21"
+  },
+  "candidate_reasoning_policy": "Native provider default; no override or added prompt",
+  "judge_model": "qwen3.6-27b",
+  "judge_provider": "openrouter",
+  "judge_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "judge_api_key_env": "OPENROUTER_API_KEY",
+  "allow_temperature_omission": true,
+  "authorized_exception": "Claude Fable 5.2 uses mandatory adaptive thinking and accepts only native sampling; API 2026-10-21 rejects temperature. User explicitly confirmed: Keep the approved temperature exceptions; everything else follows the paper",
+  "proposed_exception": "Claude Fable 5.2 uses mandatory adaptive thinking and accepts only native sampling; API 2026-10-21 rejects temperature.",
+  "api_documentation": "https://platform.claude.com/docs/en/api/migration-2026-10-21",
+  "candidate_api_version": "2026-10-21",
+  "approval_record": {
+    "recorded_utc": "2026-11-17T11:18:46.101190+00:00",
+    "scope": "Five full 649-question LexRubric runs plus two access-check questions per model; fixed Qwen3.6-27B judge through OpenRouter; only completed full runs published in Inspect.",
+    "user_approval": "Approve. But follow strictly paper-only configs for running the evals",
+    "temperature_clarification": "Keep the approved temperature exceptions; everything else follows the paper"
+  }
+}

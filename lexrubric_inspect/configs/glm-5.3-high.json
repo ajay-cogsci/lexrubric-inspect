@@ -1,0 +1,34 @@
+{
+  "approval_status": "approved",
+  "candidate_model": "glm-5.3",
+  "candidate_provider": "zai",
+  "candidate_chat_url": "https://api.z.ai/api/paas/v4/chat/completions",
+  "candidate_api_key_env": "ZAI_API_KEY",
+  "candidate_temperature_policy": {
+    "mode": "paper",
+    "provider": "zai",
+    "model": "glm-5.3",
+    "reason": "Original temperature0.6 retained; user separately authorized reasoning_effort=high.",
+    "documentation": "https://docs.z.ai/api-reference/llm/chat-completion"
+  },
+  "candidate_reasoning_policy": "User-approved reasoning_effort=high; original candidate temperature0.6 and max_tokens16384 retained.",
+  "judge_model": "qwen3.6-27b",
+  "judge_provider": "openrouter",
+  "judge_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "judge_api_key_env": "OPENROUTER_API_KEY",
+  "allow_temperature_omission": false,
+  "authorized_exception": null,
+  "proposed_exception": null,
+  "api_documentation": "https://docs.z.ai/api-reference/llm/chat-completion",
+  "approval_record": {
+    "recorded_utc": "2026-11-17T11:18:46.101190+00:00",
+    "scope": "Five full 649-question LexRubric runs plus two access-check questions per model; fixed Qwen3.6-27B judge through OpenRouter; only completed full runs published in Inspect.",
+    "user_approval": "Approve. But follow strictly paper-only configs for running the evals",
+    "temperature_clarification": "Keep the approved temperature exceptions; everything else follows the paper",
+    "reasoning_change_approved_utc": "2026-11-17T12:21:18.820797+00:00",
+    "user_reasoning_approval": "Allow GLM reasoning_effort=high instead of default max; keep temperature 0.6 and the 16,384-token cap"
+  },
+  "candidate_reasoning_effort": "high",
+  "authorized_reasoning_exception": "Allow GLM reasoning_effort=high instead of default max; keep temperature 0.6 and the 16,384-token cap",
+  "reasoning_exception_documentation": "https://docs.z.ai/guides/llm/glm-5.3"
+}

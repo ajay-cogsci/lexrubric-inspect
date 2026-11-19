@@ -1,0 +1,30 @@
+{
+  "approval_status": "approved",
+  "candidate_model": "qwen/qwen4-max",
+  "candidate_provider": "openrouter",
+  "candidate_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "candidate_api_key_env": "OPENROUTER_API_KEY",
+  "candidate_temperature_policy": {
+    "mode": "paper",
+    "provider": "openrouter",
+    "model": "qwen/qwen4-max",
+    "reason": "Alibaba documents temperature=0.6 as supported; preserve native default reasoning.",
+    "documentation": "https://www.alibabacloud.com/help/en/model-studio/qwen-api-via-dashscope"
+  },
+  "candidate_reasoning_policy": "Native provider default; no override or added prompt",
+  "judge_model": "qwen3.6-27b",
+  "judge_provider": "openrouter",
+  "judge_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "judge_api_key_env": "OPENROUTER_API_KEY",
+  "allow_temperature_omission": false,
+  "authorized_exception": null,
+  "proposed_exception": null,
+  "api_documentation": "https://www.alibabacloud.com/help/en/model-studio/qwen-api-via-dashscope",
+  "candidate_provider_pin": "alibaba",
+  "approval_record": {
+    "recorded_utc": "2026-11-17T11:18:46.101190+00:00",
+    "scope": "Five full 649-question LexRubric runs plus two access-check questions per model; fixed Qwen3.6-27B judge through OpenRouter; only completed full runs published in Inspect.",
+    "user_approval": "Approve. But follow strictly paper-only configs for running the evals",
+    "temperature_clarification": "Keep the approved temperature exceptions; everything else follows the paper"
+  }
+}

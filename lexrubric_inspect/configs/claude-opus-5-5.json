@@ -1,0 +1,31 @@
+{
+  "approval_status": "approved",
+  "candidate_model": "claude-opus-5-5",
+  "candidate_provider": "anthropic",
+  "candidate_chat_url": "https://api.anthropic.com/v1/messages",
+  "candidate_api_key_env": "ANTHROPIC_API_KEY",
+  "candidate_temperature_policy": {
+    "mode": "omit",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "reason": "Claude Opus 5.5 requires sampling parameters to be omitted; native adaptive thinking remains at the provider default.",
+    "documentation": "https://platform.claude.com/docs/en/models/opus-5-5/migration-guide"
+  },
+  "candidate_reasoning_policy": "Native provider default; no override or added prompt",
+  "judge_model": "qwen3.6-27b",
+  "judge_provider": "openrouter",
+  "judge_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "judge_api_key_env": "OPENROUTER_API_KEY",
+  "allow_temperature_omission": true,
+  "authorized_exception": "Required Anthropic temperature omission, recorded under the user-authorized temperature exceptions and explicit replacement of DeepSeek with Opus 5.5. All other paper and released-code settings remain unchanged.",
+  "proposed_exception": null,
+  "api_documentation": "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+  "candidate_api_version": "2026-10-21",
+  "approval_record": {
+    "recorded_utc": "2026-11-17T12:09:07.585649+00:00",
+    "replacement_request": "Skip DeepSeek. Replace with another Opus model, maybe Opus 5.5",
+    "parallel_request": "Run all five in parallel, keeping each run\u2019s paper configs and approved temperature exceptions unchanged.",
+    "temperature_authorization": "Keep the approved temperature exceptions; everything else follows the paper",
+    "reason_for_replacement": "DeepSeek original OpenRouter host blocked by account and workspace no-training restrictions; no privacy restrictions relaxed."
+  }
+}

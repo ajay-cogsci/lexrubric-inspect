@@ -1,0 +1,13 @@
+{
+  "candidate_model": "gpt-6-astra",
+  "candidate_provider": "openai",
+  "candidate_chat_url": "https://api.openai.com/v1/chat/completions",
+  "candidate_api_key_env": "OPENAI_API_KEY",
+  "judge_model": "qwen3.6-27b",
+  "judge_provider": "openrouter",
+  "judge_chat_url": "https://openrouter.ai/api/v1/chat/completions",
+  "judge_api_key_env": "OPENROUTER_API_KEY",
+  "allow_temperature_omission": true,
+  "authorized_exception": "User explicitly approved running GPT Astra with its supported default sampling instead of the paper's temperature 0.6 on 2026-11-11. No other generation/scoring exception is authorized.",
+  "api_documentation": "https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6-astra"
+}
