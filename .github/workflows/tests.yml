@@ -1,0 +1,32 @@
+name: Offline checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run --frozen python -m unittest discover -s tests -v
+      - run: uv run --frozen lexrubric-run --help
+      - run: uv run --frozen lexrubric-verify --output-dir verification
+      - run: uv build
+      - name: Verify installed wheel away from source
+        shell: bash
+        run: |
+          runtime="$PWD/.venv/bin"
+          uv pip install --python "$runtime/python" --no-deps --reinstall dist/*.whl
+          cd /tmp
+          "$runtime/lexrubric-run" --help
+          "$runtime/python" -c "from lexrubric_inspect.lexrubric_port import load_dataset, verify_sources; verify_sources(); assert len(load_dataset()) == 649"
+          "$runtime/lexrubric-verify" --output-dir wheel-verification
