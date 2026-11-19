@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lexrubric-inspect"
+version = "0.1.0"
+description = "LexRubric evaluation task and reproducible runner for Inspect AI"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE", "lexrubric_inspect/upstream/LICENSE"]
+dependencies = [
+  "inspect-ai==0.3.286",
+  "requests==2.34.2",
+  # Inspect 0.3.286 imports acp.helpers, which was removed in ACP 1.0.
+  "agent-client-protocol==0.12.1",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[project.scripts]
+lexrubric-run = "lexrubric_inspect.run:main"
+lexrubric-verify = "lexrubric_inspect.verify_pipeline:main"
+
+[project.entry-points.inspect_ai]
+lexrubric_inspect = "lexrubric_inspect._registry"
+
+[tool.setuptools]
+packages = ["lexrubric_inspect"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+lexrubric_inspect = [
+  "*.json",
+  "configs/*.json",
+  "data/*.json",
+  "upstream/code/*.py",
+  "upstream/code/*.txt",
+  "upstream/data/*.json",
+  "upstream/LICENSE",
+  "upstream/README.md",
+]
+
+[tool.uv]
+package = true

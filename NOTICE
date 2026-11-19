@@ -1,0 +1,20 @@
+LexRubric Inspect contains an adapter for the LexRubric benchmark.
+
+Original benchmark:
+LexRubric: A Rubric-Guided Diagnostic Benchmark for Open-Ended Legal Tasks
+Yifan Chen, Haitao Li, Yiran Hu, Kaisong Song, Jun Lin, Yueyue Wu,
+Qingyao Ai, Min Zhang, and Yiqun Liu.
+https://arxiv.org/abs/2606.09389v1
+https://github.com/foggpoy/LexRubric
+
+The vendored evaluator, prompt, upstream documentation, and associated assets
+retain their original provenance. The upstream MIT copyright and permission
+notice is reproduced without changes in lexrubric_inspect/upstream/LICENSE:
+Copyright (c) 2026 Yifan Chen.
+
+Pinned source revisions and SHA-256 values are recorded in
+lexrubric_inspect/upstream_manifest.json and
+lexrubric_inspect/data_manifest.json. Vendored source and data are unmodified.
+
+The adapter's LICENSE does not replace upstream notices. Dependencies are
+installed separately under their respective licenses.
