@@ -15,6 +15,8 @@ dependencies = [
   "requests==2.34.2",
   # Inspect 0.3.286 imports acp.helpers, which was removed in ACP 1.0.
   "agent-client-protocol==0.12.1",
+  # Preserve the initial= retry API used by Inspect 0.3.286.
+  "tenacity==9.1.4",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",

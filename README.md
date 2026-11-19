@@ -10,13 +10,13 @@ Use Python 3.12 and [uv](https://docs.astral.sh/uv/). From the repository root:
 
 ```bash
 uv sync --frozen --python 3.12
-uv run --frozen pytest -q
+uv run --frozen pytest -q -W error::DeprecationWarning
 uv run --frozen inspect-evals-lint --all
 uv run inspect list tasks lexrubric_inspect/tasks.py
 uv run lexrubric-verify --output-dir verification
 ```
 
-Runtime versions are pinned to `inspect-ai==0.3.286` and `requests==2.34.2`; `agent-client-protocol==0.12.1` preserves compatibility with this Inspect release. `uv.lock` records the resolved environment. The offline verifier checks all source records and uses mocked HTTP for two synthetic pipeline samples. It makes no paid requests.
+Runtime versions are pinned to `inspect-ai==0.3.286` and `requests==2.34.2`; `agent-client-protocol==0.12.1` and `tenacity==9.1.4` preserve compatibility with this Inspect release. Tenacity 9.1.4 supports the retry API used by Inspect 0.3.286. Tests treat deprecation warnings as errors. `uv.lock` records the resolved environment. The offline verifier checks all source records and uses mocked HTTP for two synthetic pipeline samples. It makes no paid requests.
 
 ## Run the benchmark
 

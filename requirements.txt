@@ -1,3 +1,5 @@
 inspect-ai==0.3.286
 requests==2.34.2
 agent-client-protocol==0.12.1
+# Inspect 0.3.286 uses the initial= retry API retained by this release.
+tenacity==9.1.4
