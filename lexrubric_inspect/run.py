@@ -30,7 +30,7 @@ ROOT = Path(".")
 def save_json(path: Path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".tmp")
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
 
 
@@ -222,7 +222,7 @@ def publish_full_run(logs, config, run_name, run_dir, working_dir, limit, summar
               "has_api_errors": summary["has_api_errors"],
               "benchmark_results_valid": summary["benchmark_results_valid"], "files": files}
     record_path = run_dir / "publication.json"
-    previous = json.loads(record_path.read_text()) if record_path.exists() else None
+    previous = json.loads(record_path.read_text(encoding="utf-8")) if record_path.exists() else None
     if previous is not None and {k: v for k, v in previous.items() if k != "published_utc"} != record:
         raise ValueError("Existing publication record differs from this completed run")
     for split, destination in destinations.items():
@@ -330,7 +330,7 @@ def main():
             "Choose a fresh --run-name and reuse its saved answers with "
             f"--generation-from {archived_run / 'generation'}."
         )
-    config = json.loads(args.config.read_text())
+    config = json.loads(args.config.read_text(encoding="utf-8"))
     if config.get("approval_status") == "pending":
         raise ValueError("This planned run is awaiting user approval; no provider setup or inference was started")
     if args.judge_model:
@@ -355,7 +355,7 @@ def main():
         generation_import = prepare_generation_import(args.generation_from, config, provenance, args.limit)
         if ((run_dir.exists() and any(run_dir.iterdir())) or (log_dir.exists() and any(log_dir.iterdir()))):
             prior_manifest = run_dir / "run_manifest.json"
-            if not prior_manifest.is_file() or json.loads(prior_manifest.read_text()).get("generation_import") != generation_import:
+            if not prior_manifest.is_file() or json.loads(prior_manifest.read_text(encoding="utf-8")).get("generation_import") != generation_import:
                 raise ValueError("Generation reuse requires a new run directory/cache, or a matching import resume")
     run_dir.mkdir(parents=True, exist_ok=True)
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -369,7 +369,7 @@ def main():
     if generation_import is not None:
         manifest["generation_import"] = generation_import
     if manifest_path.exists():
-        previous = json.loads(manifest_path.read_text())
+        previous = json.loads(manifest_path.read_text(encoding="utf-8"))
         if previous != manifest:
             raise ValueError("Cannot resume this run with a different configuration")
     save_json(manifest_path, manifest)

@@ -48,7 +48,7 @@ class OriginalCorpusTests(unittest.TestCase):
         }
 
     def test_original_june_release_and_checksums(self):
-        manifest = json.loads((ROOT / "data_manifest.json").read_text())
+        manifest = json.loads((ROOT / "data_manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["commit"], "13861f99b2b268dbdffad7a95281e4ea27fe172d")
         for filename, entry in manifest["files"].items():
             data = (ROOT / "data" / filename).read_bytes()

@@ -110,9 +110,9 @@ class GenerationReuseTests(unittest.TestCase):
                 stored[path.name] = self.generation(split)
             source_cache = root / "results/old-run/score-cache"
             source_cache.mkdir(parents=True)
-            (source_cache / "do-not-import.json").write_text("old judge cache")
+            (source_cache / "do-not-import.json").write_text("old judge cache", encoding="utf-8")
             config_path = root / "config.json"
-            config_path.write_text(json.dumps(self.config))
+            config_path.write_text(json.dumps(self.config), encoding="utf-8")
             original_config = config_path.read_bytes()
 
             def score(log, **kwargs):
@@ -163,10 +163,10 @@ class GenerationReuseTests(unittest.TestCase):
                     self.assertEqual(source_eval.task_args_passed["judge_model"], "fixture-old-judge")
                 self.assertFalse((root / "logs/new-run").exists())
                 self.assertFalse((root / "results/new-run/score-cache/do-not-import.json").exists())
-                summary = json.loads((root / "results/new-run/summary.json").read_text())
+                summary = json.loads((root / "results/new-run/summary.json").read_text(encoding="utf-8"))
                 self.assertEqual(summary["benchmark_results_valid"], not grader_error)
                 self.assertEqual(summary["overall_score_rate_percent"], 0 if grader_error else 60)
-                manifest = json.loads((root / "results/new-run/run_manifest.json").read_text())
+                manifest = json.loads((root / "results/new-run/run_manifest.json").read_text(encoding="utf-8"))
                 self.assertEqual(manifest["generation_import"]["source_log_dir"], str(source.resolve()))
                 access.reset_mock()
                 grading.reset_mock()
@@ -175,8 +175,8 @@ class GenerationReuseTests(unittest.TestCase):
                 grading.assert_not_called()
             generate.assert_not_called()
             self.assertEqual(config_path.read_bytes(), original_config)
-            self.assertEqual((source_cache / "do-not-import.json").read_text(), "old judge cache")
-            status = json.loads((root / "results/new-run/status.json").read_text())
+            self.assertEqual((source_cache / "do-not-import.json").read_text(encoding="utf-8"), "old judge cache")
+            status = json.loads((root / "results/new-run/status.json").read_text(encoding="utf-8"))
             self.assertEqual(status["phase"], "failed" if denied else "complete_with_errors" if grader_error else "complete")
 
     def test_new_judge_reuses_generation_and_completed_resume_is_offline(self):

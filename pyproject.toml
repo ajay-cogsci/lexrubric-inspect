@@ -47,3 +47,23 @@ lexrubric_inspect = [
 
 [tool.uv]
 package = true
+
+[dependency-groups]
+dev = [
+  "inspect-evals-lint==0.12.0",
+  "pytest-inspect-evals==0.4.0",
+  "ruff>=0.15,<0.17",
+]
+
+[tool.inspect-evals-lint]
+preset = "single-eval"
+source-root = "."
+# The Inspect Evals registry contains this repository's evaluation metadata.
+eval-yaml-required = false
+
+[tool.ruff.lint]
+extend-select = ["PLW1514"]
+preview = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

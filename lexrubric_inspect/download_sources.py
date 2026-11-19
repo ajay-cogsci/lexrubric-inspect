@@ -29,7 +29,7 @@ def main():
         print(f"Saved {name}: {len(data)} bytes", flush=True)
     manifest = {"repository": "https://github.com/foggpoy/LexRubric", "commit": COMMIT,
                 "paper": "https://arxiv.org/html/2606.09389v1", "files": records}
-    (output_root / "upstream_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_root / "upstream_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     original = {}
     for name in ["falvzixun.json", "sifakaoshi.json"]:
         url = f"https://raw.githubusercontent.com/foggpoy/LexRubric/{DATA_COMMIT}/data/{name}"
@@ -41,7 +41,7 @@ def main():
         path.write_bytes(data)
         original[name] = {"url": url, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)}
         print(f"Saved original data/{name}: {len(data)} bytes", flush=True)
-    (output_root / "data_manifest.json").write_text(json.dumps({"commit": DATA_COMMIT, "files": original}, indent=2) + "\n")
+    (output_root / "data_manifest.json").write_text(json.dumps({"commit": DATA_COMMIT, "files": original}, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -100,7 +100,7 @@ class FinalLogPublicationTests(unittest.TestCase):
 
     def test_pending_and_archived_runs_stop_before_provider_setup(self):
         config = self.root / "pending.json"
-        config.write_text(json.dumps({"approval_status": "pending"}))
+        config.write_text(json.dumps({"approval_status": "pending"}), encoding="utf-8")
         with (patch.object(sys, "argv", ["run.py", "--config", str(config), "--run-name", "pending-run"]),
               patch.object(run, "configure", side_effect=AssertionError("Must not configure")) as configure,
               patch.object(run, "inspect_eval", side_effect=AssertionError("Must not infer")) as infer):
@@ -109,7 +109,7 @@ class FinalLogPublicationTests(unittest.TestCase):
             configure.assert_not_called()
             infer.assert_not_called()
         self.assertFalse((self.root / "results/pending-run").exists())
-        (self.run_dir / "storage.json").write_text("{}")
+        (self.run_dir / "storage.json").write_text("{}", encoding="utf-8")
         with (patch.object(sys, "argv", ["run.py", "--config", str(self.root / "absent.json"),
                                         "--run-name", self.run_name]),
               patch.object(run, "configure", side_effect=AssertionError("Must not configure")) as configure):

@@ -61,7 +61,7 @@ export LEXRUBRIC_JUDGE_API_KEY_ENV=OPENROUTER_API_KEY
 export LEXRUBRIC_ALLOW_TEMPERATURE_OMISSION=false
 unset LEXRUBRIC_CANDIDATE_REASONING_EFFORT
 
-uv run inspect eval lexrubric_inspect/lexrubric_port.py@lexrubric \
+uv run inspect eval lexrubric_inspect/tasks.py@lexrubric \
   --model lexrubric_raw/qwen/qwen4-max -T split=all
 ```
 

@@ -49,7 +49,7 @@ def _verified_bytes(path: Path, expected: str) -> bytes:
 
 def verify_sources() -> dict:
     """Check file bytes against the downloaded manifest and original data hashes."""
-    manifest = json.loads((ROOT / "upstream_manifest.json").read_text())
+    manifest = json.loads((ROOT / "upstream_manifest.json").read_text(encoding="utf-8"))
     if manifest["commit"] != CODE_COMMIT:
         raise ValueError("Unexpected upstream implementation revision")
     for name, info in manifest["files"].items():
@@ -64,7 +64,7 @@ def verify_sources() -> dict:
 
 def load_upstream() -> ModuleType:
     """An isolated copy prevents candidate/judge endpoint configuration races."""
-    manifest = json.loads((ROOT / "upstream_manifest.json").read_text())
+    manifest = json.loads((ROOT / "upstream_manifest.json").read_text(encoding="utf-8"))
     path = ROOT / "upstream/code/eval.py"
     _verified_bytes(path, manifest["files"]["code/eval.py"]["sha256"])
     _verified_bytes(ROOT / "upstream/code/prompt.txt", manifest["files"]["code/prompt.txt"]["sha256"])
@@ -229,7 +229,7 @@ def lexrubric_scorer(judge_model: str = JUDGE_MODEL):
                 digest = hashlib.sha256(json.dumps(cache_identity, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
                 checkpoint = Path(cache_dir) / f"{digest}.json"
                 if checkpoint.exists():
-                    return Score.model_validate_json(checkpoint.read_text())
+                    return Score.model_validate_json(checkpoint.read_text(encoding="utf-8"))
             candidate_error = ref.is_api_error(response)
             if candidate_error:
                 results = []
@@ -260,7 +260,7 @@ def lexrubric_scorer(judge_model: str = JUDGE_MODEL):
             if checkpoint:
                 checkpoint.parent.mkdir(parents=True, exist_ok=True)
                 temporary = checkpoint.with_suffix(".tmp")
-                temporary.write_text(scored.model_dump_json(indent=2))
+                temporary.write_text(scored.model_dump_json(indent=2), encoding="utf-8")
                 temporary.replace(checkpoint)
             return scored
     return score

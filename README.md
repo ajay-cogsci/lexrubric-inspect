@@ -10,8 +10,9 @@ Use Python 3.12 and [uv](https://docs.astral.sh/uv/). From the repository root:
 
 ```bash
 uv sync --frozen --python 3.12
-uv run python -m unittest discover -s tests -v
-uv run inspect list tasks lexrubric_inspect/lexrubric_port.py
+uv run --frozen pytest -q
+uv run --frozen inspect-evals-lint --all
+uv run inspect list tasks lexrubric_inspect/tasks.py
 uv run lexrubric-verify --output-dir verification
 ```
 
@@ -35,7 +36,7 @@ uv run lexrubric-run \
 
 These commands make paid model requests. Omit `--limit` for all 649 questions; `--limit 1` is a separate pilot with one question per split. Choose a new run name for each independent evaluation.
 
-The discoverable task is `lexrubric_inspect/lexrubric_port.py@lexrubric`, with `split=all|consultation|exam` and `judge_model=qwen3.6-27b`. It uses the custom `lexrubric_raw/<candidate-model>` provider. [Direct Inspect usage](docs/PROTOCOL.md#direct-inspect-usage) requires explicit endpoint/provider settings; the canonical runner supplies the recorded generation-before-grading workflow.
+The discoverable task is `lexrubric_inspect/tasks.py@lexrubric`, with `split=all|consultation|exam` and `judge_model=qwen3.6-27b`. The original `lexrubric_inspect/lexrubric_port.py@lexrubric` path remains supported. Both use the custom `lexrubric_raw/<candidate-model>` provider. [Direct Inspect usage](docs/PROTOCOL.md#direct-inspect-usage) requires explicit endpoint/provider settings; the canonical runner supplies the recorded generation-before-grading workflow.
 
 ## Results
 

@@ -22,6 +22,17 @@ class PackagingTests(unittest.TestCase):
         self.assertIsNotNone(factory)
         self.assertEqual(len(factory().dataset), 649)
 
+    def test_public_task_and_legacy_entrypoint_have_identical_settings_and_samples(self):
+        from lexrubric_inspect import lexrubric
+
+        original = lexrubric_port.lexrubric(split="exam")
+        public = lexrubric(split="exam")
+        self.assertEqual(public.config, original.config)
+        self.assertEqual(public.metadata, original.metadata)
+        self.assertEqual(list(public.dataset), list(original.dataset))
+        task_module = load_module(lexrubric_port.ROOT / "tasks.py")
+        self.assertEqual(task_module.lexrubric(split="exam").config, original.config)
+
     def test_preflight_writes_only_to_explicit_output_directory(self):
         asset_root = lexrubric_port.ROOT
         assets = {p.relative_to(asset_root): p.read_bytes()
@@ -37,10 +48,10 @@ class PackagingTests(unittest.TestCase):
                   redirect_stdout(io.StringIO())):
                 run.main()
             manifest_path = output / "results/offline-package-check/run_manifest.json"
-            manifest = json.loads(manifest_path.read_text())
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             self.assertEqual(manifest["original_questions"], 649)
             self.assertEqual(manifest["original_criteria"], 12337)
-            self.assertEqual(manifest["configuration"], json.loads((asset_root / "run_config.json").read_text()))
+            self.assertEqual(manifest["configuration"], json.loads((asset_root / "run_config.json").read_text(encoding="utf-8")))
             self.assertEqual(Path(manifest["log_dir"]), output / "results/offline-package-check/working")
             generate.assert_not_called()
             access.assert_not_called()
